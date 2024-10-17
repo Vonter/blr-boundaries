@@ -1,6 +1,4 @@
-import {
-  format_default,
-} from './format';
+import { format_default } from './format';
 
 export type BoundaryId =
   | 'bbmp_wards'
@@ -38,6 +36,9 @@ export interface ILayer {
 
   /** Formatted display name of district, e.g. transforms 101 to Manhattan - 1 */
   formatContent: (name: any) => string;
+
+  /** Parent group for nested hierarchy */
+  group?: string;
 }
 
 type ILayers = {
@@ -46,133 +47,134 @@ type ILayers = {
 
 export const layers: ILayers = {
   bbmp_wards: {
-    name: 'BBMP Ward',
+    name: 'Wards',
     name_long: 'BBMP Wards',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🏤',
     formatUrl: name => 'https://bbmp.gov.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'BBMP'
   },
   bbmp_zone: {
-    name: 'BBMP Zone',
+    name: 'Zones',
     name_long: 'BBMP Zones',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🏤',
     formatUrl: name => 'https://bbmp.gov.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'BBMP'
   },
   bescom_division: {
-    name: 'BESCOM Division',
+    name: 'Divisions',
     name_long: 'BESCOM Divisions',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '💡',
     formatUrl: name => 'https://bescom.co.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'BESCOM'
   },
   bescom_subdivision: {
-    name: 'BESCOM Subdivision',
+    name: 'Subdivisions',
     name_long: 'BESCOM Subdivisions',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '💡',
     formatUrl: name => 'https://bescom.co.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'BESCOM'
   },
   bwssb_division: {
-    name: 'BWSSB Division',
+    name: 'Divisions',
     name_long: 'BWSSB Divisions',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '💧',
-    formatUrl: name => name => 'https://bwssb.karnataka.gov.in/',
-    formatContent: name => name
+    formatUrl: name => 'https://bwssb.karnataka.gov.in/',
+    formatContent: name => name,
+    group: 'BWSSB'
   },
   bwssb_service_station: {
-    name: 'BWSSB Service Station',
+    name: 'Service Stations',
     name_long: 'BWSSB Service Stations',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '💧',
-    formatUrl: name => name => 'https://bwssb.karnataka.gov.in/',
-    formatContent: name => name
+    formatUrl: name => 'https://bwssb.karnataka.gov.in/',
+    formatContent: name => name,
+    group: 'BWSSB'
   },
   police_city: {
     name: 'City Police',
     name_long: 'City Police',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '👮',
     formatUrl: name => 'https://bcp.karnataka.gov.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'Police'
   },
   police_traffic: {
     name: 'Traffic Police',
     name_long: 'Traffic Police',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🚔',
     formatUrl: name => 'https://btp.gov.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'Police'
   },
-  pincode: {
-    name: 'PIN Code',
-    name_long: 'Pin Codes',
-    description:
-      '',
-    description_url: '',
-    icon: '📮',
-    formatUrl: name => 'https://www.indiapost.gov.in/sites/PostalCircles/Karnataka/Pages/cpio.aspx',
-    formatContent: name => name
-  },
+
   admin_district: {
     name: 'District',
     name_long: 'Districts',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🏦',
     formatUrl: name => 'https://karnataka.gov.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'Admin'
   },
   admin_taluk: {
     name: 'Taluk',
     name_long: 'Taluks',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🏦',
     formatUrl: name => 'https://karnataka.gov.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'Admin'
   },
   election_ac: {
     name: 'State Assembly',
     name_long: 'State Assembly',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🗳',
     formatUrl: name => 'https://kla.kar.nic.in/',
-    formatContent: name => name
+    formatContent: name => name,
+    group: 'Election'
   },
   election_pc: {
     name: 'Lok Sabha',
     name_long: 'Lok Sabha',
-    description:
-      '',
+    description: '',
     description_url: '',
     icon: '🗳',
     formatUrl: name => 'https://sansad.in/ls/',
+    formatContent: name => name,
+    group: 'Election'
+  },
+  pincode: {
+    name: 'PIN Code',
+    name_long: 'Pin Codes',
+    description: '',
+    description_url: '',
+    icon: '📮',
+    formatUrl: name =>
+      'https://www.indiapost.gov.in/sites/PostalCircles/Karnataka/Pages/cpio.aspx',
     formatContent: name => name
   }
 };
