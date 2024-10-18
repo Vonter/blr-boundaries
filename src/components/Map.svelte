@@ -88,26 +88,29 @@
 
   async function loadMap() {
     // Load source if not already loaded
-    if ($mapStore && !$mapStore.getSource('boundaries')) {
-      $mapStore
-        .addSource('boundaries', {
-          type: 'geojson',
-          promoteId: 'namecol',
-          data: $boundaries
-        })
-        .addSource('boundaries-centerpoints', {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: $boundaries.features.map((feature: Feature) => {
-              feature.geometry = {
-                type: 'Point',
-                coordinates: findPolylabel(feature)
-              };
-              return feature;
-            })
+    if ($mapStore && !$mapStore.getSource('boundaries') && $boundaries) {
+      $mapStore.addSource('boundaries', {
+        type: 'geojson',
+        promoteId: 'namecol',
+        data: $boundaries
+      });
+
+      const centerpoints = {
+        type: 'FeatureCollection',
+        features: $boundaries.features.map((feature: Feature) => ({
+          type: 'Feature',
+          properties: { ...feature.properties },
+          geometry: {
+            type: 'Point',
+            coordinates: findPolylabel(feature)
           }
-        });
+        }))
+      };
+
+      $mapStore.addSource('boundaries-centerpoints', {
+        type: 'geojson',
+        data: centerpoints
+      });
 
       $mapStore.on('sourcedata', source => {
         if (source.sourceId === 'boundaries' && source.isSourceLoaded) {
